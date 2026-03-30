@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>胃がんサバイバー日記</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;700;900&family=Noto+Sans+JP:wght@300;400;700&display=swap" rel="stylesheet">
+<style>
+  :root { --bg: #f5f0e6; --ink: #1a1510; --red: #c0392b; --border: rgba(26,21,16,0.13); }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { background:var(--bg); color:var(--ink); font-family:'Noto Sans JP',sans-serif; overflow-x:hidden; }
+  #intro { position:fixed; inset:0; background:var(--bg); display:flex; align-items:center; justify-content:center; z-index:1000; }
+  #intro.out { opacity:0; transition:opacity 1.2s ease; pointer-events:none; }
+  .pl { position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); width:90%; max-width:560px; text-align:center; font-family:'Noto Serif JP',serif; font-weight:900; color:var(--ink); line-height:1.7; opacity:0; pointer-events:none; transition:opacity 1.31s ease; }
+  .pl.show { opacity:1; }
+  .pl.lg { font-size:clamp(1.9rem,5.5vw,3.6rem); }
+  .pl.md { font-size:clamp(1.4rem,4.2vw,2.6rem); }
+  .r { color:var(--red); }
+  #skip { position:fixed; bottom:1.8rem; right:1.8rem; z-index:1001; background:none; border:1.5px solid var(--border); color:var(--ink); padding:0.5rem 1.2rem; font-size:0.8rem; cursor:pointer; }
+  #bar { position:fixed; bottom:0; left:0; height:4px; background:var(--red); width:0%; z-index:1002; }
+  #lp { opacity:0; transition:opacity 1s ease; }
+  #lp.show { opacity:1; }
+  .red-bar { width:100%; height:6px; background:var(--red); }
+  .hero { min-height:100vh; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; padding:6rem 2rem 5rem; border-bottom:1px solid var(--border); }
+  .h-title { font-family:'Noto Serif JP',serif; font-weight:900; font-size:clamp(2.4rem,7vw,4.8rem); line-height:1.1; }
+  .rule-thin { width:50px; height:1px; background:var(--red); margin:3rem auto; }
+  .btn { display:inline-block; background:var(--red); color:#fff; text-decoration:none; padding:1.1rem 3rem; font-weight:700; margin-top:2rem; }
+  .sec { max-width:700px; margin:0 auto; padding:7rem 2rem; border-bottom:1px solid var(--border); }
+  .body { font-size:clamp(0.93rem,2.3vw,1.02rem); line-height:2.7; font-weight:300; }
+  .rv { opacity:0; transform:translateY(22px); transition:opacity 0.9s ease,transform 0.9s ease; }
+  .rv.on { opacity:1; transform:none; }
+</style>
+</head>
+<body>
+<div id="intro">
+  <div class="pl lg" id="p0"><span class="r">5</span>年間の記録と記憶。</div>
+  <div class="pl lg" id="p1"><span class="r">胃</span>がん 。<br>ステージ1a。</div>
+  <div class="pl lg" id="p2"><span class="r">臆病</span>だった。<br>でも<br>怖くなかった。</div>
+  <div class="pl lg" id="p3">宣告されたその日から<br><span class="r">日</span>記を書き綴った。</div>
+  <div class="pl lg" id="p4">「配られたカードで<br><span class="r">生</span>きていく」</div>
+  <div class="pl md" id="p7" style="font-weight:700;">胃がんサバイバー日記</div>
+  <button id="skip" onclick="skip()">スキップ</button>
+  <div id="bar"></div>
+</div>
+<div id="lp">
+  <div class="red-bar"></div>
+  <div class="hero">
+    <h1 class="h-title rv">胃がんサバイバー日記</h1>
+    <div class="rule-thin rv"></div>
+    <p class="body rv">2021年2月、胃がん宣告。5年間の記録が本になりました。</p>
+    <a href="#" class="btn rv">Amazonで読む</a>
+  </div>
+</div>
+<script>
+const lines = [['p0',0,3000],['p1',4000,7500],['p2',8500,12500],['p3',13500,19000],['p4',20000,25000],['p7',26000,31000]];
+const TOTAL = 32000;
+let t0 = performance.now();
+function run() {
+  (function step(now) {
+    const p = Math.min((now-t0)/TOTAL*100, 100);
+    document.getElementById('bar').style.width = p+'%';
+    if (p<100) requestAnimationFrame(step);
+  })(t0);
+  lines.forEach(([id, show, hide]) => {
+    setTimeout(() => document.getElementById(id).classList.add('show'), show);
+    setTimeout(() => document.getElementById(id).classList.remove('show'), hide);
+  });
+  setTimeout(reveal, TOTAL);
+}
+function skip() { reveal(); }
+function reveal() {
+  document.getElementById('intro').classList.add('out');
+  document.getElementById('lp').classList.add('show');
+  const obs = new IntersectionObserver(es => {
+    es.forEach(e => { if(e.isIntersecting) e.target.classList.add('on') });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.rv').forEach(el => obs.observe(el));
+}
+window.onload = run;
+</script>
+</body>
+</html>
