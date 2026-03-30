@@ -6,77 +6,441 @@
 <title>胃がんサバイバー日記</title>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;700;900&family=Noto+Sans+JP:wght@300;400;700&display=swap" rel="stylesheet">
 <style>
-  :root { --bg: #f5f0e6; --ink: #1a1510; --red: #c0392b; --border: rgba(26,21,16,0.13); }
+  :root {
+    --bg:     #f5f0e6;
+    --ink:    #1a1510;
+    --red:    #c0392b;
+    --border: rgba(26,21,16,0.13);
+  }
+
   * { margin:0; padding:0; box-sizing:border-box; }
   body { background:var(--bg); color:var(--ink); font-family:'Noto Sans JP',sans-serif; overflow-x:hidden; }
-  #intro { position:fixed; inset:0; background:var(--bg); display:flex; align-items:center; justify-content:center; z-index:1000; }
+
+  /* ━━━ INTRO ━━━ */
+  #intro {
+    position:fixed; inset:0; background:var(--bg);
+    display:flex; align-items:center; justify-content:center; z-index:1000;
+  }
   #intro.out { opacity:0; transition:opacity 1.2s ease; pointer-events:none; }
-  .pl { position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); width:90%; max-width:560px; text-align:center; font-family:'Noto Serif JP',serif; font-weight:900; color:var(--ink); line-height:1.7; opacity:0; pointer-events:none; transition:opacity 1.31s ease; }
+
+  .pl {
+    position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);
+    width:90%; max-width:560px; text-align:center;
+    font-family:'Noto Serif JP',serif; font-weight:900;
+    color:var(--ink); line-height:1.7;
+    opacity:0; pointer-events:none;
+    transition:opacity 1.31s ease;
+  }
   .pl.show { opacity:1; }
+
+  .pl.xl { font-size:clamp(2.6rem,7.5vw,5rem); }
   .pl.lg { font-size:clamp(1.9rem,5.5vw,3.6rem); }
   .pl.md { font-size:clamp(1.4rem,4.2vw,2.6rem); }
+  .pl.sm { font-size:clamp(1rem,3vw,1.6rem); font-weight:400; }
+
   .r { color:var(--red); }
-  #skip { position:fixed; bottom:1.8rem; right:1.8rem; z-index:1001; background:none; border:1.5px solid var(--border); color:var(--ink); padding:0.5rem 1.2rem; font-size:0.8rem; cursor:pointer; }
+
+  #skip {
+    position:fixed; bottom:1.8rem; right:1.8rem; z-index:1001;
+    background:none; border:1.5px solid var(--border); color:var(--ink);
+    padding:0.5rem 1.2rem; font-family:'Noto Sans JP',sans-serif;
+    font-size:0.8rem; letter-spacing:0.1em; cursor:pointer; transition:opacity 0.2s;
+  }
+  #skip:hover { opacity:0.5; }
+
   #bar { position:fixed; bottom:0; left:0; height:4px; background:var(--red); width:0%; z-index:1002; }
+
+  /* ━━━ LP ━━━ */
   #lp { opacity:0; transition:opacity 1s ease; }
   #lp.show { opacity:1; }
+
   .red-bar { width:100%; height:6px; background:var(--red); }
-  .hero { min-height:100vh; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; padding:6rem 2rem 5rem; border-bottom:1px solid var(--border); }
-  .h-title { font-family:'Noto Serif JP',serif; font-weight:900; font-size:clamp(2.4rem,7vw,4.8rem); line-height:1.1; }
-  .rule-thin { width:50px; height:1px; background:var(--red); margin:3rem auto; }
-  .btn { display:inline-block; background:var(--red); color:#fff; text-decoration:none; padding:1.1rem 3rem; font-weight:700; margin-top:2rem; }
-  .sec { max-width:700px; margin:0 auto; padding:7rem 2rem; border-bottom:1px solid var(--border); }
-  .body { font-size:clamp(0.93rem,2.3vw,1.02rem); line-height:2.7; font-weight:300; }
+
+  /* HERO */
+  .hero {
+    min-height:100vh; display:flex; flex-direction:column;
+    align-items:center; justify-content:center; text-align:center;
+    padding:6rem 2rem 5rem; background:var(--bg);
+    border-bottom:1px solid var(--border);
+  }
+
+  .series { font-size:0.72rem; letter-spacing:0.45em; color:var(--ink); margin-bottom:2.5rem; }
+
+  .h-title {
+    font-family:'Noto Serif JP',serif; font-weight:900;
+    font-size:clamp(2.4rem,7vw,4.8rem); line-height:1.1; color:var(--ink);
+  }
+  .h-sub {
+    font-family:'Noto Serif JP',serif; font-weight:300;
+    font-size:clamp(1rem,3vw,1.6rem); color:var(--ink);
+    letter-spacing:0.14em; margin-top:1.2rem;
+  }
+
+  .rule-thin { width:50px; height:1px; background:var(--red); margin:3rem auto; opacity:0.7; }
+
+  .h-copy {
+    font-family:'Noto Serif JP',serif;
+    font-size:clamp(0.95rem,2.4vw,1.08rem); line-height:2.5; font-weight:300;
+    color:var(--ink); max-width:480px; margin:0 auto 0.8rem;
+  }
+
+  .author-line {
+    font-size:0.85rem; letter-spacing:0.15em; color:var(--ink);
+    margin:1.8rem 0 3rem;
+    display:flex; align-items:center; justify-content:center;
+    flex-wrap:wrap; gap:0.6rem 1.2rem;
+  }
+  .author-line span { white-space:nowrap; }
+  .sep { color:var(--border); }
+  .price-tag {
+    font-size:0.85rem; color:var(--ink);
+    border:1px solid var(--border); padding:0.2rem 0.75rem;
+    letter-spacing:0.05em;
+  }
+
+  .btn {
+    display:inline-block; background:var(--red); color:#fff;
+    text-decoration:none; padding:1.1rem 3rem;
+    font-family:'Noto Sans JP',sans-serif; font-size:1rem;
+    font-weight:700; letter-spacing:0.08em; transition:opacity 0.2s;
+  }
+  .btn:hover { opacity:0.85; }
+
+  .scroll-hint { margin-top:5rem; font-size:0.68rem; letter-spacing:0.35em; color:var(--ink); }
+  .scroll-hint::after {
+    content:''; display:block; width:1px; height:44px;
+    background:var(--ink); margin:0.8rem auto 0; opacity:0.2;
+  }
+
+  /* SECTIONS */
+  .sec {
+    max-width:700px; margin:0 auto; padding:7rem 2rem;
+    border-bottom:1px solid var(--border); background:var(--bg);
+  }
+
+  .sec-label { font-size:0.66rem; letter-spacing:0.55em; color:var(--red); margin-bottom:1.6rem; text-transform:uppercase; }
+
+  .sec-title {
+    font-family:'Noto Serif JP',serif; font-weight:900;  /* 太文字 */
+    font-size:clamp(1.4rem,3.8vw,2.1rem); line-height:1.55;
+    margin-bottom:2.5rem; color:var(--ink);
+  }
+
+  .body { font-size:clamp(0.93rem,2.3vw,1.02rem); line-height:2.7; font-weight:300; color:var(--ink); }
+
+  blockquote {
+    border-left:6px solid var(--red); padding:1.5rem 2rem;
+    margin:3rem 0; background:rgba(192,57,43,0.04);
+  }
+  blockquote p {
+    font-family:'Noto Serif JP',serif;
+    font-size:clamp(0.95rem,2.5vw,1.08rem); line-height:2.3; font-weight:300; color:var(--ink);
+  }
+
+  /* TIMELINE */
+  .tl { margin-top:3rem; }
+  .tl-row { display:grid; grid-template-columns:90px 1fr; gap:0 2rem; padding-bottom:2.5rem; align-items:start; }
+  .tl-date { font-size:0.75rem; letter-spacing:0.08em; color:var(--ink); padding-top:4px; text-align:right; }
+  .tl-text {
+    font-family:'Noto Serif JP',serif;
+    font-size:clamp(0.93rem,2.3vw,1.02rem); line-height:1.9; font-weight:300; color:var(--ink);
+    padding-left:1.4rem; border-left:6px solid var(--red);
+  }
+
+  /* CHAPTERS */
+  .chap-list { margin-top:2.5rem; }
+  .chap { display:flex; gap:2rem; padding:1.8rem 0; border-bottom:1px solid var(--border); align-items:flex-start; }
+  .chap:first-child { border-top:1px solid var(--border); }
+  .chap-num { font-size:0.66rem; letter-spacing:0.3em; color:var(--red); min-width:64px; padding-top:4px; flex-shrink:0; }
+  .chap-title {
+    font-family:'Noto Serif JP',serif; font-size:clamp(0.95rem,2.4vw,1.08rem);
+    font-weight:700; margin-bottom:0.4rem; color:var(--ink);
+  }
+  .chap-desc { font-size:0.85rem; line-height:1.7; color:var(--ink); }
+
+  /* FINAL CTA */
+  .final { text-align:center; padding:9rem 2rem; background:var(--bg); }
+  .final .h-title { font-size:clamp(1.8rem,5vw,3.2rem); margin-bottom:1rem; }
+  .final .body { max-width:420px; margin:0 auto 3.5rem; }
+
+  footer {
+    text-align:center; padding:2.5rem; font-size:0.72rem; color:var(--ink);
+    letter-spacing:0.12em; border-top:1px solid var(--border); background:var(--bg);
+  }
+
   .rv { opacity:0; transform:translateY(22px); transition:opacity 0.9s ease,transform 0.9s ease; }
   .rv.on { opacity:1; transform:none; }
 </style>
 </head>
 <body>
+
+<!-- INTRO -->
 <div id="intro">
   <div class="pl lg" id="p0"><span class="r">5</span>年間の記録と記憶。</div>
-  <div class="pl lg" id="p1"><span class="r">胃</span>がん 。<br>ステージ1a。</div>
+
+  <div class="pl lg" id="p1"><span class="r">胃</span>がん。<br>ステージ1a。</div>
+
   <div class="pl lg" id="p2"><span class="r">臆病</span>だった。<br>でも<br>怖くなかった。</div>
-  <div class="pl lg" id="p3">宣告されたその日から<br><span class="r">日</span>記を書き綴った。</div>
+
+  <div class="pl lg" id="p3">仕事も検査も行い、<br>がん宣告<span class="r">当</span>日から<br>日記を毎日綴った。</div>
+
   <div class="pl lg" id="p4">「配られたカードで<br><span class="r">生</span>きていく」</div>
-  <div class="pl md" id="p7" style="font-weight:700;">胃がんサバイバー日記</div>
+
+  <div class="pl lg" id="p4b">ノンフィクション<br>作<span class="r">家</span>デビュー作</div>
+
+  <div class="pl lg" id="p4c">処女作</span>にして、<br><span class="r">2</span>作同時発売。</div>
+
+  <div class="pl md" id="p5"> 治療を経てサバイバーへ<br>5年間、重ね続けた<span class="r">心</span>の声。 </div>
+
+  <div class="pl lg" id="p6">さよならの代わりに<br><span class="r">リ</span>スペクト。</div>
+
+  <div class="pl md" id="p7" style="letter-spacing:0.35em;font-weight:700;">胃がん<span class="r">サ</span>バイバー日記</div>
+
   <button id="skip" onclick="skip()">スキップ</button>
   <div id="bar"></div>
 </div>
+
+<!-- LP -->
 <div id="lp">
   <div class="red-bar"></div>
+
+  <!-- HERO -->
   <div class="hero">
+    <p class="series rv">配られたカードで生きていく　第１巻</p>
     <h1 class="h-title rv">胃がんサバイバー日記</h1>
+    <p class="h-sub rv">さよならの代わりにリスペクト</p>
     <div class="rule-thin rv"></div>
-    <p class="body rv">2021年2月、胃がん宣告。5年間の記録が本になりました。</p>
+    <p class="h-copy rv">
+      2021年2月、胃がん宣告。<br>
+      手術、入院、自宅療養、仕事復帰——<br>
+      そして5年間の経過観察という名の日常。<br>
+      誰かの道標になれたら、<br>
+      と思い書き続けた日記が<br>
+      本になりました。
+    </p>
+    <div class="author-line rv">
+      <span>著　hiro</span>
+      <span class="sep">／</span>
+      <span class="price-tag">Kindle版　160円</span>
+    </div>
     <a href="#" class="btn rv">Amazonで読む</a>
+    <p class="scroll-hint rv">scroll</p>
   </div>
+
+  <!-- STORY -->
+  <div class="sec">
+    <p class="sec-label rv">story</p>
+    <h2 class="sec-title rv">「治療」ではなく、「日常」を書いた。</h2>
+    <p class="body rv">
+      胃がんになったとき、安堵した。<br><br>
+      「怖い」より先に、そういう感覚があった。<br>
+      なぜそう思ったのか。<br><br>
+      この本は、診断から手術、入院中のリアル、
+      退院後の体の変化、後遺症との付き合い方、
+      お金のこと、仕事のこと、家族のこと——
+      そのすべてを、素直に書いたものです。<br><br>
+      ドラマチックな治療記ではありません。<br>
+      ただ、「配られたカードで生きていく」一人の記録です。
+    </p>
+    <blockquote class="rv">
+      <p>「自分の身の回りにはがんで治療している人は今現在はいないが、いつかこれを誰かが読んで少しでも何かの役に立てたら、そう思う。私の歩いた道が、誰かの道標になれば幸いです。」</p>
+    </blockquote>
+    <p class="body rv" style="margin-top:2.5rem; padding-top:2rem; border-top:1px solid var(--border);">
+      全記事はnoteで無料公開中。<br>
+      それでも一冊にまとめた理由は——<br><br>
+      読んでほしい人に、届けたかったから。<br><br>
+      noteを知っている人にしか届かない。<br>
+      検索して、見つけて、読む気になった人にしか届かない。<br><br>
+      この本は、そのフィルターをなくすために作った。<br><br>
+      「胃がんになった」と告げられた夜に、<br>
+      誰かがスマホでAmazonを開くかもしれない。<br>
+      その人の手に、届いてほしかった。<br><br>
+      なお、術中の体内写真を含む1記事だけ有料にしている。<br>
+      気分が悪くなる方がいると思ったから。<br>
+      それ以外は全部、無料で読める。<br><br>
+      160円は、その「届ける」ための値段だ。
+    </p>
+  </div>
+
+  <!-- TIMELINE -->
+  <div class="sec">
+    <p class="sec-label rv">timeline</p>
+    <h2 class="sec-title rv">この本が辿る軌跡</h2>
+    <div class="tl rv">
+      <div class="tl-row">
+        <p class="tl-date">2021年<br>2月</p>
+        <p class="tl-text">胃体中部小弯がん 宣告。当日からnoteに日記を書き始める。</p>
+      </div>
+      <div class="tl-row">
+        <p class="tl-date">2021年<br>4月</p>
+        <p class="tl-text">胃亜全摘手術。合併症により入院は3週間に。病室で、読書と日記と向き合い続けた。</p>
+      </div>
+      <div class="tl-row">
+        <p class="tl-date">2021年<br>5月〜</p>
+        <p class="tl-text">自宅療養、仕事復帰。後遺症と折り合いをつけながら「サバイバー」として生きる日々が始まる。</p>
+      </div>
+      <div class="tl-row">
+        <p class="tl-date">2022〜<br>2023年</p>
+        <p class="tl-text">経過観察、終活資格の取得、いざ石川へのバイク旅——。病気と共に、人生は続いていく。</p>
+      </div>
+      <div class="tl-row">
+        <p class="tl-date">2026年</p>
+        <p class="tl-text">5年目の経過観察検査。そして、この集大成。</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- CHAPTERS -->
+  <div class="sec">
+    <p class="sec-label rv">contents</p>
+    <h2 class="sec-title rv">章構成</h2>
+    <div class="chap-list rv">
+      <div class="chap">
+        <p class="chap-num">Chapter 1</p>
+        <div><p class="chap-title">検査・診断・告知</p><p class="chap-desc">発覚から手術決定まで。1日目〜10日目。</p></div>
+      </div>
+      <div class="chap">
+        <p class="chap-num">Chapter 2</p>
+        <div><p class="chap-title">入院・手術・治療</p><p class="chap-desc">手術前夜から退院まで。11日目〜46日目。</p></div>
+      </div>
+      <div class="chap">
+        <p class="chap-num">Chapter 3</p>
+        <div><p class="chap-title">退院・日常への復帰</p><p class="chap-desc">退院後の体の変化、費用の記録、仕事復帰。</p></div>
+      </div>
+      <div class="chap">
+        <p class="chap-num">Chapter 4</p>
+        <div><p class="chap-title">経過観察の日々・再発への不安</p><p class="chap-desc">サバイバーとして生きる。再発への不安と向き合いながら。</p></div>
+      </div>
+      <div class="chap">
+        <p class="chap-num">Chapter 5</p>
+        <div><p class="chap-title">生き方が変わったこと</p><p class="chap-desc">資格取得、がん封じ寺、石川へのバイク旅。5年目の終着点。</p></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FINAL CTA -->
+  <div class="final">
+    <h2 class="h-title rv">配られたカードで、<br>生きていく。</h2>
+    <div class="rule-thin rv" style="margin:2.5rem auto;"></div>
+    <p class="body rv">
+      同じ病気を経験している方へ。<br>
+      経験していないすべての方へ。<br>
+      この記録が、誰かの安心材料になれたら。
+    </p>
+    <a href="#" class="btn rv" style="display:inline-block;margin-top:3.5rem;">Amazonで購入する</a>
+    <div class="author-line rv" style="margin-top:1.4rem;">
+      <span>著　hiro</span>
+      <span class="sep">／</span>
+      <span class="price-tag">Kindle版　160円</span>
+    </div>
+  </div>
+
+  <footer>© 2026 hiro ／ 配られたカードで生きていく</footer>
 </div>
+
 <script>
-const lines = [['p0',0,3000],['p1',4000,7500],['p2',8500,12500],['p3',13500,19000],['p4',20000,25000],['p7',26000,31000]];
-const TOTAL = 32000;
-let t0 = performance.now();
-function run() {
+const lines = [
+  ['p0',      0,   3055],
+  ['p1',   4509,   8000],
+  ['p2',   9600,  13455],
+  ['p3',  15273,  20364],
+  ['p4',  22109,  26182],
+  ['p4b', 27600,  31600],
+  ['p4c', 33000,  37000],
+  ['p5',  38400,  44000],
+  ['p6',  45600,  49800],
+  ['p7',  51200,  55400],
+];
+const TOTAL = 57000;
+let endTimer=null, rafId=null, t0=null;
+
+// ── Web Audio APIで著作権フリーの効果音生成 ──
+let audioCtx = null;
+function getCtx() {
+  if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+  return audioCtx;
+}
+function chime(delay=0) {
+  try {
+    const ctx = getCtx();
+    const t = ctx.currentTime + delay/1000;
+    [880, 1100].forEach((freq, i) => {
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc.connect(gain); gain.connect(ctx.destination);
+      osc.type = 'sine';
+      osc.frequency.value = freq;
+      const st = t + i * 0.06;
+      gain.gain.setValueAtTime(0, st);
+      gain.gain.linearRampToValueAtTime(i===0 ? 0.12 : 0.07, st + 0.01);
+      gain.gain.exponentialRampToValueAtTime(0.001, st + 0.15);
+      osc.start(st); osc.stop(st + 0.2);
+    });
+  } catch(e) {}
+}
+
+function runIntro() {
+  t0 = performance.now();
   (function step(now) {
     const p = Math.min((now-t0)/TOTAL*100, 100);
     document.getElementById('bar').style.width = p+'%';
-    if (p<100) requestAnimationFrame(step);
+    if (p<100) rafId = requestAnimationFrame(step);
   })(t0);
+
+  function say(text, delay) {
+    setTimeout(() => {
+      if (!window.speechSynthesis) return;
+      const u = new SpeechSynthesisUtterance(text);
+      u.lang='ja-JP'; u.rate=0.80; u.pitch=0.9; u.volume=0.65;
+      speechSynthesis.speak(u);
+    }, delay);
+  }
+  say('5年間の記録と記憶。',                                                         145);
+  say('胃がん 。ステージ1a。',                                         4636);
+  say('臆病だった。でも怖くなかった。',                                        9727);
+  say('仕事も検査も行い、がん宣告当日から日記を毎日綴った。', 15455);
+  say('配られたカードで生きていく',                                          22273);
+  say('ノンフィクション作家デビュー作',                                      27700);
+  say('処女作にして、2作同時発売。',                                         33100);
+  say('さよならの代わりにリスペクト',                                        45700);
+
   lines.forEach(([id, show, hide]) => {
-    setTimeout(() => document.getElementById(id).classList.add('show'), show);
-    setTimeout(() => document.getElementById(id).classList.remove('show'), hide);
+    setTimeout(() => {
+      document.getElementById(id)?.classList.add('show');
+      chime();
+    }, show);
+    setTimeout(() => document.getElementById(id)?.classList.remove('show'), hide);
   });
-  setTimeout(reveal, TOTAL);
+
+  endTimer = setTimeout(revealLP, TOTAL);
 }
-function skip() { reveal(); }
-function reveal() {
-  document.getElementById('intro').classList.add('out');
-  document.getElementById('lp').classList.add('show');
-  const obs = new IntersectionObserver(es => {
-    es.forEach(e => { if(e.isIntersecting) e.target.classList.add('on') });
-  }, { threshold: 0.1 });
+
+function skip() {
+  clearTimeout(endTimer);
+  cancelAnimationFrame(rafId);
+  if (window.speechSynthesis) speechSynthesis.cancel();
+  revealLP();
+}
+
+function revealLP() {
+  const intro = document.getElementById('intro');
+  intro.classList.add('out');
+  setTimeout(() => intro.style.display='none', 1300);
+  document.getElementById('skip').style.display='none';
+  document.getElementById('bar').style.display='none';
+
+  const lp = document.getElementById('lp');
+  lp.classList.add('show');
+
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('on'); obs.unobserve(e.target); }
+    });
+  }, { threshold: 0.12 });
   document.querySelectorAll('.rv').forEach(el => obs.observe(el));
 }
-window.onload = run;
+
+runIntro();
 </script>
 </body>
 </html>
