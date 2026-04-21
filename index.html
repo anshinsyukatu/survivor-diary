@@ -178,23 +178,29 @@
 <div id="intro">
   <div class="pl lg" id="p0"><span class="r">5</span>年間の記録と記憶。</div>
 
-  <div class="pl lg" id="p1"><span class="r">胃</span>がん。<br>ステージ1a。</div>
+  <div class="pl lg" id="p1"><span class="r">胃</span>がん ステージ１。<br>腹腔鏡手術。</div>
 
-  <div class="pl lg" id="p2"><span class="r">臆病</span>だった。<br>でも<br>怖くなかった。</div>
+  <div class="pl lg" id="p2"><span class="r">怖</span>かった。<br>でも<br>怖くなかった。</div>
 
-  <div class="pl lg" id="p3">仕事も検査も行い、<br>がん宣告<span class="r">当</span>日から<br>日記を毎日綴った。</div>
+  <div class="pl lg" id="p3">仕事を続けながら、<br>検査をしながら、<br>宣告されたその日から<br><span class="r">日</span>記を毎日書き綴った。</div>
 
   <div class="pl lg" id="p4">「配られたカードで<br><span class="r">生</span>きていく」</div>
 
-  <div class="pl lg" id="p4b">ノンフィクション<br>作<span class="r">家</span>デビュー作</div>
+  <div class="pl lg" id="p4b">ノンフィクション作家<br>デビュー<span class="r">作</span></div>
 
-  <div class="pl lg" id="p4c">処女作</span>にして、<br><span class="r">2</span>作同時発売。</div>
+  <div class="pl lg" id="p4c">処女<span class="r">作</span>にして、<br>2作同時発表。</div>
 
-  <div class="pl md" id="p5"> 治療を経てサバイバーへ<br>5年間、重ね続けた<span class="r">心</span>の声。 </div>
+  <div class="pl md" id="p5">
+    診断から手術　自宅療養<br>
+    サバイバーとして生きた5年間。<br>
+    2021年から綴り続けた<br>
+    記録が、Kindleになった。<br>
+    重ね続けた心の声。
+  </div>
 
   <div class="pl lg" id="p6">さよならの代わりに<br><span class="r">リ</span>スペクト。</div>
 
-  <div class="pl md" id="p7" style="letter-spacing:0.35em;font-weight:700;">胃がん<span class="r">サ</span>バイバー日記</div>
+  <div class="pl md" id="p7" style="letter-spacing:0.35em;font-weight:700;">胃がんサバイバー日記</div>
 
   <button id="skip" onclick="skip()">スキップ</button>
   <div id="bar"></div>
@@ -223,7 +229,10 @@
       <span class="sep">／</span>
       <span class="price-tag">Kindle版　160円</span>
     </div>
-    <a href="#" class="btn rv">Amazonで読む</a>
+    <a href="https://www.amazon.co.jp/dp/B0GX2W2R6H" class="btn rv">Amazonで読む</a>
+    <p class="rv" style="margin-top:1rem; font-size:0.78rem; letter-spacing:0.04em; color:var(--ink);">
+      <a href="https://anshinsyukatu.github.io/survivor-diary/" style="color:var(--red); text-decoration:none; border-bottom:1px solid var(--red); padding-bottom:1px;">https://anshinsyukatu.github.io/survivor-diary/</a>
+    </p>
     <p class="scroll-hint rv">scroll</p>
   </div>
 
@@ -327,7 +336,7 @@
       経験していないすべての方へ。<br>
       この記録が、誰かの安心材料になれたら。
     </p>
-    <a href="#" class="btn rv" style="display:inline-block;margin-top:3.5rem;">Amazonで購入する</a>
+    <a href="https://www.amazon.co.jp/dp/B0GX2W2R6H" class="btn rv" style="display:inline-block;margin-top:3.5rem;">Amazonで購入する</a>
     <div class="author-line rv" style="margin-top:1.4rem;">
       <span>著　hiro</span>
       <span class="sep">／</span>
@@ -335,7 +344,12 @@
     </div>
   </div>
 
-  <footer>© 2026 hiro ／ 配られたカードで生きていく</footer>
+  <footer>
+    <p style="margin-bottom:0.8rem;">
+      <a href="https://anshinsyukatu.github.io/survivor-diary/" style="color:var(--red); text-decoration:none; letter-spacing:0.05em; font-size:0.82rem; border-bottom:1px solid var(--red); padding-bottom:1px;">https://anshinsyukatu.github.io/survivor-diary/</a>
+    </p>
+    © 2026 hiro ／ 配られたカードで生きていく
+  </footer>
 </div>
 
 <script>
@@ -396,12 +410,12 @@ function runIntro() {
     }, delay);
   }
   say('5年間の記録と記憶。',                                                         145);
-  say('胃がん 。ステージ1a。',                                         4636);
-  say('臆病だった。でも怖くなかった。',                                        9727);
-  say('仕事も検査も行い、がん宣告当日から日記を毎日綴った。', 15455);
+  say('胃がん ステージ１。腹腔鏡手術。',                                         4636);
+  say('怖かった。でも怖くなかった。',                                        9727);
+  say('仕事を続けながら、検査をしながら、宣告されたその日から、日記を毎日書き綴った。', 15455);
   say('配られたカードで生きていく',                                          22273);
   say('ノンフィクション作家デビュー作',                                      27700);
-  say('処女作にして、2作同時発売。',                                         33100);
+  say('処女作にして、2作同時発表。',                                         33100);
   say('さよならの代わりにリスペクト',                                        45700);
 
   lines.forEach(([id, show, hide]) => {
